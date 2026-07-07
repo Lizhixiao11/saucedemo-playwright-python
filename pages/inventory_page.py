@@ -59,12 +59,25 @@ class InventoryPage:
         return 0
 
     # ---------- Product ----------
+    def is_add_to_cart_button_visible(self, product_name: str):
+        product = product_name.lower().replace(" ", "-")
+
+        return self.page.locator(
+            f"[data-test='add-to-cart-{product}']"
+        ).is_visible()
 
     def add_to_cart(self, product_name: str):
         product = product_name.lower().replace(" ", "-")
         self.page.locator(
             f'[data-test="add-to-cart-{product}"]'
         ).click()
+
+    def is_remove_button_visible(self, product_name: str):
+        product = product_name.lower().replace(" ", "-")
+
+        return self.page.locator(
+            f"[data-test='remove-{product}']"
+        ).is_visible()
 
     def remove_from_cart(self, product_name: str):
         product = product_name.lower().replace(" ", "-")

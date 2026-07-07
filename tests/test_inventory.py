@@ -24,3 +24,51 @@ class TestInventory:
 
         # Assert
         assert inventory_page.get_cart_badge_count() == 1
+
+    def test_inv_fn_002(self, inventory_page):
+        """
+        INV-FN-002
+
+        Verify multiple products can be added into cart.
+        """
+
+        # Step 1
+        inventory_page.add_to_cart("Sauce Labs Bike Light")
+
+        # Step 2
+        inventory_page.add_to_cart("Sauce Labs Backpack")
+
+        # Expected 1
+        assert inventory_page.is_remove_button_visible(
+            "Sauce Labs Bike Light"
+        )
+
+        assert inventory_page.is_remove_button_visible(
+            "Sauce Labs Backpack"
+        )
+
+        # Expected 2
+        assert inventory_page.get_cart_badge_count() == 2
+
+    def test_inv_fn_003(self, inventory_page):
+        """
+        INV-FN-003
+
+        Verify product can be removed from inventory page.
+        """
+
+        # Arrange
+        inventory_page.add_to_cart("Sauce Labs Bike Light")
+
+        assert inventory_page.get_cart_badge_count() == 1
+
+        # Act
+        inventory_page.remove_from_cart("Sauce Labs Bike Light")
+
+        # Expected 1
+        assert inventory_page.is_add_to_cart_button_visible(
+            "Sauce Labs Bike Light"
+        )
+
+        # Expected 2
+        assert inventory_page.get_cart_badge_count() == 0
