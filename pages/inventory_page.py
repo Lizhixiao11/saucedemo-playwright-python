@@ -60,33 +60,42 @@ class InventoryPage:
 
     # ---------- Product ----------
     def is_add_to_cart_button_visible(self, product_name: str):
-        product = product_name.lower().replace(" ", "-")
+        product = self._format_product_name(product_name)
 
         return self.page.locator(
             f"[data-test='add-to-cart-{product}']"
         ).is_visible()
 
     def add_to_cart(self, product_name: str):
-        product = product_name.lower().replace(" ", "-")
+
+        product = self._format_product_name(product_name)
+
         self.page.locator(
             f'[data-test="add-to-cart-{product}"]'
         ).click()
 
     def is_remove_button_visible(self, product_name: str):
-        product = product_name.lower().replace(" ", "-")
+        product = self._format_product_name(product_name)
 
         return self.page.locator(
             f"[data-test='remove-{product}']"
         ).is_visible()
 
     def remove_from_cart(self, product_name: str):
-        product = product_name.lower().replace(" ", "-")
+        product = self._format_product_name(product_name)
         self.page.locator(
             f'[data-test="remove-{product}"]'
         ).click()
 
     def click_product(self, product_name: str):
         self.page.get_by_text(product_name).click()
+
+    def click_product(self, product_name: str):
+        self.page.locator(
+            '[data-test="inventory-item-name"]', has_text=product_name).click()
+
+    def get_item_count(self):
+        return self.inventory_items.count()
 
     def get_all_product_names(self):
         return self.product_names.all_text_contents()
@@ -98,12 +107,15 @@ class InventoryPage:
 
     def sort_by(self, value: str):
         """
-        az
-        za
-        lohi
-        hilo
+        Sort options:
+        az   : Name (A to Z)
+        za   : Name (Z to A)
+        lohi : Price (low to high)
+        hilo : Price (high to low)
         """
         self.sort_dropdown.select_option(value)
+    
+    # ---------- Private ----------
 
-    def get_item_count(self):
-        return self.inventory_items.count()
+    def _format_product_name(self, product_name: str):
+        return product_name.lower().replace(" ", "-")
