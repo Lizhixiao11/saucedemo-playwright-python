@@ -69,6 +69,8 @@ class CartPage:
         self.page.get_by_text(product_name).click()
 
     # ---------- Product Information ----------
+    def are_product_links_visible(self):
+        return self.page.locator("[data-test$='title-link']").count() == self.product_names.count()
 
     def get_item_count(self):
         return self.cart_items.count()
