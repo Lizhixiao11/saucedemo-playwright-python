@@ -1,5 +1,5 @@
 from pages.inventory_page import InventoryPage
-
+from pages.cart_page import CartPage
 
 class TestInventory:
 
@@ -72,3 +72,21 @@ class TestInventory:
 
         # Expected 2
         assert inventory_page.get_cart_badge_count() == 0
+
+
+    def test_inv_fn_010(self, inventory_page):
+        """
+        INV-FN-010
+
+        Verify user can navigate to Cart page by clicking cart icon.
+        """
+
+        # Step
+        inventory_page.open_cart()
+
+        cart_page = CartPage(inventory_page.page)
+
+        # Expected
+        cart_page.verify_cart_page_loaded()
+
+        assert "cart.html" in inventory_page.page.url

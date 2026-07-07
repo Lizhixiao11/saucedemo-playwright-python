@@ -7,8 +7,8 @@ class CartPage:
         self.page = page
 
         # ---------- Header ----------
-        self.title = page.locator(".title")
         self.app_logo = page.locator(".app_logo")
+        self.title = page.locator("[data-test='title']")
 
         # ---------- Menu ----------
         self.menu_btn = page.locator('[data-test="open-menu"]')
@@ -44,6 +44,9 @@ class CartPage:
     def verify_cart_page_loaded(self):
         expect(self.title).to_have_text("Your Cart")
         expect(self.cart_list).to_be_visible()
+
+    def get_cart_item_count(self):
+        return self.cart_items.count()
 
     # ---------- Navigation ----------
 
