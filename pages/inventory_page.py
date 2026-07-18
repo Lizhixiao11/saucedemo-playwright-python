@@ -22,6 +22,7 @@ class InventoryPage:
         self.inventory_list = page.locator('[data-test="inventory-list"]')
         self.inventory_items = page.locator('[data-test="inventory-item"]')
         self.product_names = page.locator('[data-test="inventory-item-name"]')
+        self.product_descriptions = page.locator('[data-test="inventory-item-desc"]')
         self.product_prices = page.locator('[data-test="inventory-item-price"]')
 
         # Sort
@@ -101,6 +102,9 @@ class InventoryPage:
 
     def get_all_product_names(self):
         return self.product_names.all_text_contents()
+
+    def get_all_descriptions(self):
+        return self.product_descriptions.all_text_contents()
 
     def get_all_prices(self):
         return self.product_prices.all_text_contents()

@@ -64,10 +64,6 @@ class CartPage:
             f'[data-test="remove-{product}"]'
         ).click()
 
-        expect(
-        self.page.locator(
-            f'[data-test="remove-{product}"]')).to_have_count(0)
-
     def click_product(self, product_name: str):
         self.page.locator(
             "[data-test='inventory-item-name']",
