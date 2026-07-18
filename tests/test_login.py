@@ -1,4 +1,5 @@
 import pytest
+from playwright.sync_api import expect
 
 from pages.login_page import LoginPage
 from config.config import Config
@@ -23,6 +24,6 @@ class TestLogin:
         )
 
         # Assert
-        login_page.should_have_url(
+        expect(page).to_have_url(
             "https://www.saucedemo.com/inventory.html"
         )

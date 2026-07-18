@@ -49,6 +49,8 @@ class InventoryPage:
         self.logout_link.click()
 
     # ---------- Shopping Cart ----------
+    def add_item_by_index(self, index):
+        self.page.locator(".inventory_item button").nth(index).click()
 
     def open_cart(self):
         self.cart_icon.click()
