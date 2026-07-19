@@ -1,8 +1,12 @@
+import pytest
 from playwright.sync_api import expect
 
 from config.config import Config
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
+
+
+pytestmark = pytest.mark.regression
 
 
 class TestCheckout:

@@ -7,6 +7,9 @@ from pages.checkout_overview_page import CheckoutOverviewPage
 from pages.checkout_page import CheckoutPage
 
 
+pytestmark = pytest.mark.regression
+
+
 class TestCheckoutOverview:
     PRODUCT_NAMES = ("Sauce Labs Bike Light", "Sauce Labs Backpack")
     PRODUCT_PRICES = ("$9.99", "$29.99")

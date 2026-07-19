@@ -24,11 +24,12 @@ config/
     config.py
 
 pages/
-    base_page.py
     login_page.py
     inventory_page.py
     cart_page.py
     checkout_page.py
+    checkout_overview_page.py
+    checkout_complete_page.py
 
 tests/
     conftest.py
@@ -36,6 +37,8 @@ tests/
     test_inventory.py
     test_cart.py
     test_checkout.py
+    test_checkout_overview.py
+    test_flow.py
 
 test_data/
     Saucedemo Test Case.xlsx

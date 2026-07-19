@@ -1,5 +1,154 @@
-## Known Issues / Application Behavior Differences
+# SauceDemo UI Automation
 
-| Test Case | Expected | Actual | Status |
+## Project overview
+
+This repository is a Python UI automation project for
+[SauceDemo](https://www.saucedemo.com/). It demonstrates a maintainable
+pytest and Playwright test framework organized with the Page Object Model and
+driven by manual business cases maintained in Excel.
+
+## Technology stack
+
+- Python 3.12.10
+- pytest 9.1.1
+- Playwright for Python 1.61.0 using the synchronous API
+- pytest-playwright 0.8.0
+- Page Object Model
+- Excel-based manual test cases
+
+Python 3.12.10 is the currently verified and supported project runtime.
+
+## Project structure
+
+```text
+config/
+    config.py
+pages/
+    login_page.py
+    inventory_page.py
+    cart_page.py
+    checkout_page.py
+    checkout_overview_page.py
+    checkout_complete_page.py
+tests/
+    conftest.py
+    test_login.py
+    test_inventory.py
+    test_cart.py
+    test_checkout.py
+    test_checkout_overview.py
+    test_flow.py
+test_data/
+    Saucedemo Test Case.xlsx
+reports/
+    html/
+    screenshots/
+```
+
+## P0 coverage
+
+The regression suite automates all 28 P0 Excel business cases:
+
+| Area | P0 cases |
+|---|---:|
+| Inventory | 5 |
+| Cart | 6 |
+| Checkout Information | 6 |
+| Checkout Overview | 8 |
+| End-to-end Flow | 3 |
+| Total | 28 |
+
+The framework smoke login test is intentionally separate from the Excel
+business-test count.
+
+## Installation
+
+Create and activate a Python 3.12.10 virtual environment:
+
+```powershell
+py -3.12 -m venv venv
+.\venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+## Playwright browser installation
+
+Install the Chromium browser used by the default configuration:
+
+```powershell
+python -m playwright install chromium
+```
+
+## Configuration
+
+Runtime settings are defined in `config/config.py`:
+
+- `BASE_URL`: SauceDemo URL
+- `BROWSER`: Playwright browser engine
+- `HEADLESS`: headed or headless execution
+- `SLOW_MO`: delay between browser actions in milliseconds
+- `TIMEOUT`: default Playwright timeout in milliseconds
+- `USERNAME` and `PASSWORD`: SauceDemo standard-user credentials
+- `REPORT_DIR` and `SCREENSHOT_DIR`: report output locations
+
+## Execution commands
+
+Run the full suite:
+
+```powershell
+python -m pytest
+```
+
+Run the framework smoke test:
+
+```powershell
+python -m pytest -m smoke
+```
+
+Run all Excel P0 business tests:
+
+```powershell
+python -m pytest -m regression
+```
+
+Run one functional module:
+
+```powershell
+python -m pytest tests/test_inventory.py
+python -m pytest tests/test_cart.py
+python -m pytest tests/test_checkout.py
+python -m pytest tests/test_checkout_overview.py
+python -m pytest tests/test_flow.py
+```
+
+## Marker usage
+
+- `smoke`: framework verification tests required by the business-test setup.
+- `regression`: Excel-based P0 business tests.
+
+The marker definitions are maintained in `pytest.ini`.
+
+## Report location
+
+Runtime artifacts belong under `reports/`:
+
+- `reports/screenshots/` for screenshots
+- `reports/html/` for HTML report output when HTML reporting is configured
+
+Generated report content is excluded from Git.
+
+## Known requirement discrepancy
+
+| Test Case | Excel requirement | Current SauceDemo behavior | Status |
 |---|---|---|---|
-| OVR-FN-006 | Cancel navigates to cart.html | Cancel navigates to inventory.html | Failed - behavior mismatch |
+| OVR-FN-006 | Cancel navigates to `cart.html` | Cancel navigates to `inventory.html` | Intentional test failure |
+
+`OVR-FN-006` must continue asserting the Excel requirement. Its assertion
+must not be changed merely to match the current application behavior.
+
+## Future improvements
+
+- Allow selected configuration values to be overridden by environment.
+- Improve automated screenshot and report generation.
+- Document a repeatable dependency-lock update process.
+- Resolve or formally clarify the OVR-FN-006 requirement discrepancy.

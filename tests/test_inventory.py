@@ -1,10 +1,14 @@
 import re
 
+import pytest
 from playwright.sync_api import expect
 
 from config.config import Config
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
+
+
+pytestmark = pytest.mark.regression
 
 class TestInventory:
 
