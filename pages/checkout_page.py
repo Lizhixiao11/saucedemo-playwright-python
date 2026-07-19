@@ -17,6 +17,9 @@ class CheckoutPage:
         # ---------- Validation ----------
         self.error_message = page.locator('[data-test="error"]')
 
+        # ---------- Shopping Cart ----------
+        self.cart_badge = page.locator('[data-test="shopping-cart-badge"]')
+
         # ---------- Buttons ----------
         self.cancel_button = page.locator('[data-test="cancel"]')
         self.continue_button = page.locator('[data-test="continue"]')
@@ -46,3 +49,8 @@ class CheckoutPage:
 
     def click_cancel(self):
         self.cancel_button.click()
+
+    def get_cart_badge_count(self) -> int:
+        if self.cart_badge.count() == 0:
+            return 0
+        return int(self.cart_badge.text_content())
