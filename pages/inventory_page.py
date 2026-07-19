@@ -21,9 +21,18 @@ class InventoryPage:
         # Inventory
         self.inventory_list = page.locator('[data-test="inventory-list"]')
         self.inventory_items = page.locator('[data-test="inventory-item"]')
+        self.product_images = self.inventory_items.locator(
+            '[data-test$="-img"]'
+        )
+        self.product_links = self.inventory_items.locator(
+            '[data-test$="title-link"]'
+        )
         self.product_names = page.locator('[data-test="inventory-item-name"]')
         self.product_descriptions = page.locator('[data-test="inventory-item-desc"]')
         self.product_prices = page.locator('[data-test="inventory-item-price"]')
+        self.add_to_cart_buttons = self.inventory_items.locator(
+            '[data-test^="add-to-cart-"]'
+        )
 
         # Sort
         self.sort_dropdown = page.locator('[data-test="product-sort-container"]')
