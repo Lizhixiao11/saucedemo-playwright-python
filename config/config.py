@@ -12,6 +12,7 @@ class Config:
 
     # Timeout (milliseconds)
     TIMEOUT = 10000
+    NAVIGATION_TIMEOUT = 30000
 
     # Screenshot
     SCREENSHOT_DIR = os.path.join("reports", "screenshots")

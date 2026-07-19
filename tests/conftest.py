@@ -39,6 +39,9 @@ def page(context):
     page = context.new_page()
 
     page.set_default_timeout(Config.TIMEOUT)
+    page.set_default_navigation_timeout(
+        Config.NAVIGATION_TIMEOUT
+    )
 
     yield page
 
@@ -48,18 +51,12 @@ def page(context):
     page.close()
 
 @pytest.fixture
-def inventory_page(browser):
-
-    page = browser.new_page()
-
+def inventory_page(page):
     login = LoginPage(page)
-
     inventory = InventoryPage(page)
 
     login.open(Config.BASE_URL)
-
     login.login_as_standard_user()
+    inventory.verify_inventory_page_loaded()
 
-    yield inventory
-
-    page.close()
+    return inventory

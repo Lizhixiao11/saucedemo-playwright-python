@@ -100,9 +100,6 @@ class InventoryPage:
         ).click()
 
     def click_product(self, product_name: str):
-        self.page.get_by_text(product_name).click()
-
-    def click_product(self, product_name: str):
         self.page.locator(
             '[data-test="inventory-item-name"]', has_text=product_name).click()
 

@@ -139,12 +139,14 @@ Generated report content is excluded from Git.
 
 ## Known requirement discrepancy
 
-| Test Case | Excel requirement | Current SauceDemo behavior | Status |
+| Case ID | Excel requirement | Actual SauceDemo behavior | Automation result |
 |---|---|---|---|
-| OVR-FN-006 | Cancel navigates to `cart.html` | Cancel navigates to `inventory.html` | Intentional test failure |
+| OVR-FN-006 | Cancel from Checkout Overview navigates to `cart.html` | Cancel navigates to `inventory.html` | Intentional failure |
 
-`OVR-FN-006` must continue asserting the Excel requirement. Its assertion
-must not be changed merely to match the current application behavior.
+The `OVR-FN-006` assertion is preserved because the Excel workbook is the
+source of truth. This is a known requirement/application discrepancy, not an
+unstable automation failure. The regression and full-suite commands currently
+return a non-zero result because this test intentionally remains failed.
 
 ## Future improvements
 

@@ -2,6 +2,7 @@ import pytest
 from playwright.sync_api import expect
 
 from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from config.config import Config
@@ -212,18 +213,18 @@ class TestCart:
         cart_page.click_checkout()
 
         # Assert
-        expect(inventory_page.page).to_have_url(
+        checkout_page = CheckoutPage(inventory_page.page)
+        checkout_page.verify_information_page_loaded()
+        expect(checkout_page.page).to_have_url(
             f"{Config.BASE_URL}checkout-step-one.html"
         )
-        expect(inventory_page.page.locator(".title")).to_have_text(
+        expect(checkout_page.title).to_have_text(
             "Checkout: Your Information"
         )
-        expect(
-            inventory_page.page.locator('[data-test="firstName"]')
-        ).to_be_visible()
-        expect(
-            inventory_page.page.locator('[data-test="lastName"]')
-        ).to_be_visible()
-        expect(
-            inventory_page.page.locator('[data-test="postalCode"]')
-        ).to_be_visible()
+        expect(checkout_page.first_name_input).to_be_visible()
+        expect(checkout_page.last_name_input).to_be_visible()
+        expect(checkout_page.postal_code_input).to_be_visible()
+        expect(checkout_page.continue_button).to_be_visible()
+        expect(checkout_page.continue_button).to_be_enabled()
+        expect(checkout_page.cancel_button).to_be_visible()
+        expect(checkout_page.cancel_button).to_be_enabled()

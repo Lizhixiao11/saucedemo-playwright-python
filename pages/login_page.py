@@ -18,8 +18,6 @@ class LoginPage:
         self.page.goto(url)
 
     def login(self, username: str, password: str):
-        print("Current URL:", self.page.url)
-
         self.username_input.fill(username)
         self.password_input.fill(password)
         self.login_button.click()
