@@ -133,7 +133,13 @@ The marker definitions are maintained in `pytest.ini`.
 Runtime artifacts belong under `reports/`:
 
 - `reports/screenshots/` for screenshots
-- `reports/html/` for HTML report output when HTML reporting is configured
+- `reports/regression_report.html` for the self-contained regression report
+
+Generate the regression HTML report:
+
+```powershell
+pytest -m regression --html=reports/regression_report.html --self-contained-html
+```
 
 Generated report content is excluded from Git.
 

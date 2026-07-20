@@ -1,10 +1,38 @@
 import os
+import re
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 import pytest
 from playwright.sync_api import sync_playwright
 
 from config.config import Config
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if not report.failed or report.when not in ("setup", "call"):
+        return
+
+    page = item.funcargs.get("page")
+    if page is None:
+        return
+
+    try:
+        if page.is_closed():
+            return
+
+        os.makedirs(Config.SCREENSHOT_DIR, exist_ok=True)
+        screenshot_name = re.sub(r"[^A-Za-z0-9_.-]", "_", item.name)
+        screenshot_path = os.path.join(
+            Config.SCREENSHOT_DIR,
+            f"{screenshot_name}.png"
+        )
+        page.screenshot(path=screenshot_path, full_page=True)
+    except Exception:
+        return
 
 
 @pytest.fixture(scope="session")
