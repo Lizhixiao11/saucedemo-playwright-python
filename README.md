@@ -13,8 +13,10 @@ driven by manual business cases maintained in Excel.
 - pytest 9.1.1
 - Playwright for Python 1.61.0 using the synchronous API
 - pytest-playwright 0.8.0
+- pytest-html 4.2.0
 - Page Object Model
 - Excel-based manual test cases
+- Git
 
 Python 3.12.10 is the currently verified and supported project runtime.
 
@@ -41,7 +43,7 @@ tests/
 test_data/
     Saucedemo Test Case.xlsx
 reports/
-    html/
+    regression_report.html
     screenshots/
 ```
 
@@ -60,6 +62,14 @@ The regression suite automates all 28 P0 Excel business cases:
 
 The framework smoke login test is intentionally separate from the Excel
 business-test count.
+
+## Test design
+
+- Each Excel business case maps to one automated test.
+- Business test names follow their Excel Case IDs.
+- Framework verification tests remain separate from business regression tests.
+- Page Objects encapsulate page locators and reusable interactions only.
+- Business assertions remain visible in the test cases.
 
 ## Installation
 
@@ -156,7 +166,7 @@ return a non-zero result because this test intentionally remains failed.
 
 ## Future improvements
 
-- Allow selected configuration values to be overridden by environment.
-- Improve automated screenshot and report generation.
-- Document a repeatable dependency-lock update process.
-- Resolve or formally clarify the OVR-FN-006 requirement discrepancy.
+- Add GitHub Actions CI for automated test execution.
+- Support environment-variable configuration for runtime settings.
+- Evaluate parallel execution for faster regression feedback.
+- Evaluate Allure reporting for richer result analysis.
